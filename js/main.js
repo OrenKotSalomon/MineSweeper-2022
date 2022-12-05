@@ -21,7 +21,7 @@ var gLevel = {
     lifes: 3,
     hints: 3,
     safeClicks: 3
-};
+}
 
 var gGame = {
     isOn: false,
@@ -119,21 +119,21 @@ function cellClicked(elCell, i, j) {
     if (elCell.classList.contains('flag')) return
 
     if (!gNumberOfClicks && currCell.isMine) {
-        elCell = restartGame()
+        restartGame()
         return
     }
-    if (gGame.isHintOn && !currCell.isShown) {
-        if (elCell) {
-            revealWithHint(gBoard, i, j)
-            setTimeout(() => {
-                hideCells(gBoard, i, j)
-            }, 1000);
-            gGame.isHintOn = false
-            gGame.hintsRemaining--
-            elHints.innerText = ''
-            addHint()
-            return
-        }
+    if (gGame.isHintOn && !currCell.isShown && elCell) {
+        // if (elCell) {
+        revealWithHint(gBoard, i, j)
+        setTimeout(() => {
+            hideCells(gBoard, i, j)
+        }, 1000);
+        gGame.isHintOn = false
+        gGame.hintsRemaining--
+        elHints.innerText = ''
+        addHint()
+        return
+        // }
     }
     if (!currCell.isShown) {
         ++gNumberOfClicks
@@ -178,7 +178,7 @@ function cellClicked(elCell, i, j) {
     checkIfWin(i, j)
 
 }
-
+/////
 function onClickMode(levelSize, levelMines, lifes, hints) {
     gLevel.lifes = lifes
     gLevel.SIZE = levelSize
@@ -200,7 +200,7 @@ function onSafeClick() {
                     setTimeout(() => {
                         elCell.classList.remove('safe-cell')
                         elCell.classList.add('closed')
-                    }, 2000);
+                    }, 1000);
                 }
             }
         }
